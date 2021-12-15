@@ -11,10 +11,19 @@
 
 <body>
     <div id="field">
-        <div id="circle" class="circle"></div>
-        <div id="board" class="board"></div>
-        <div id="payment">
+        <div class="monitor_circle" id="monitor_circle">
+            <div id="circle" class="circle"></div>
+        </div>
 
+        <div id="board" class="board">
+            <div class="top_animation"></div>
+            <div class="left_animation"></div>
+        </div>
+        <div id="payment">
+            <div class="title_payment">
+                <span>Лунки</span>
+                <span>Очки</span>
+            </div>
         </div>
 
         <button id="start" class="start_game" type="button">start</button>
@@ -27,6 +36,10 @@
         </div>
         <div id="money">0</div>
         <button id="remove_numbers" class="remove_all" type="button">remove</button>
+    </div>
+
+    <div id="last_party" class="last_party">
+
     </div>
 
     <script src="keno.js"></script>
