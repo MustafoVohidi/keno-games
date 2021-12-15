@@ -91,10 +91,50 @@ function startGame() {
         e.classList.remove('animated_button');
         e.classList.remove('balls_in_box');
     });
+
     let arrBalls = shuffle(arrFiled).splice(0, 20);
+    console.log(arrBalls, "arrballs after start")
     for (let x = 0; x < arrBalls.length; x++) {
-        document.getElementById(`id` + arrBalls[x]).classList.add('balls_in_box')
+        setTimeout(() => {
+            setTimeout(()=>{
+                let ballItem = document.createElement('div');
+                ballItem.classList.add('ballItem');
+                ballItem.innerHTML = arrBalls[x];
+                circle.insertBefore(ballItem, circle.firstChild);
+    
+            },200)
+           
+            setTimeout(() => {
+                let xy = arrBalls[x] % 10;
+                if (xy == 0) {
+                    xy = 10;
+                }
+
+                document.querySelectorAll('.left_animation')[0].classList.add("active");
+                document.querySelectorAll('.top_animation')[0].classList.add("active");
+                document.querySelectorAll('.left_animation.active')[0].style.left = (xy - 1) * 10 + 2 + `%`;
+                document.querySelectorAll('.top_animation.active')[0].style.top = (((arrBalls[x] - xy) / 10) * 12.5) + 2 + `%`;
+            },300)
+
+
+            setTimeout(() => {
+                document.getElementById(`id` + arrBalls[x]).classList.add('balls_in_box')
+            }, 1000);
+
+        }, 1500 * x);
+        document.querySelectorAll('.left_animation.active').forEach(x => {
+            x.classList.remove('active')
+        });
+        document.querySelectorAll('.top_animation.active').forEach(x => {
+            x.classList.remove('active')
+        });
     }
+    document.querySelectorAll('.left_animation.active').forEach(x => {
+        x.classList.remove('active')
+    });
+    document.querySelectorAll('.top_animation.active').forEach(x => {
+        x.classList.remove('active')
+    });
     console.log(arrBalls)
 
     let count1 = countPayments(playerSelectedBox, arrPayments);
@@ -107,9 +147,7 @@ function startGame() {
     }
     document.getElementById(`item_payment` + returnObject.quantity).classList.add('animated_item');
     console.log(pointsPLayer(count2, count1), 21454545)
-
     document.getElementById('money').innerHTML = document.getElementById('stavka').value * returnObject.payment
-
 }
 console.log(playerSelectedBox, 'playerSelectedBox')
 document.getElementById('board').addEventListener('click', addActiveButton, false)
@@ -125,9 +163,21 @@ function shuffle(array) {
     return array;
 }
 shuffle(arrFiled);
-// let arrBalls = shuffle(arrFiled).splice(0, 20);
-// console.log(arrBalls)
 
+
+// let arrballsbefore = shuffle(arrFiled).splice(0, 40);
+// let arrayballs = []
+// for (let i = 0; i < arrballsbefore.length; i++) {
+//     let color = Math.floor(Math.random() * 16777215);
+//     color = (+color).toString(16)
+//     console.log(color, "color");
+//     let childball = document.createElement('div');
+//     childball.classList.add(`balls`);
+//     childball.style.background = `radial-gradient(#fff, #` + color + `)`
+//     circle.append(childball);
+//     arrayballs.push(childball)
+// }
+// console.log(arrballsbefore, "arrballs before start")
 
 // Таблица выплаты (Можно сгенерировать из админ панели)
 let arrPayments = [
